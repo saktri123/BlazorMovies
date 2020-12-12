@@ -1,0 +1,39 @@
+﻿@page "/"
+@inject SingletonClass singleton;
+@inject TransientClass transient;
+@inject IRepository repository;
+
+
+<p>Singleton count: @singleton.Value</p>
+<p>Transient count: @transient.Value</p>
+Create Movies-
+<DummyTextBox placeholder="Enter movie name" @attributes="prms" />
+
+@*<button @onclick="@WriteToLog">Click Me</button>*@
+<h2><u>Movies-</u></h2>
+<MovieList Movies="@movies">
+    <ChildContent>  <DummyTextBox placeholder="Search movies" width="100%" /></ChildContent>
+</MovieList>
+
+@code{
+    Dictionary<string, object> prms = new Dictionary<string, object> {
+        { "placeholder", "some value.."}
+        };
+
+    List<Movie> movies;
+    protected async override Task OnInitializedAsync()
+    {
+        await Task.Delay(3000);
+        movies = repository.GetMovies();
+    }
+
+    public void WriteToLog(Microsoft.AspNetCore.Components.Web.MouseEventArgs args)
+    {
+
+        Console.WriteLine("Hey There");
+    }
+
+}
+
+
+

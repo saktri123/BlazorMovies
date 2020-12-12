@@ -1,0 +1,38 @@
+﻿@typeparam TItem
+
+@if (List == null)
+{
+    @if (NullTemplate == null)
+    {
+        <img src="https://www.ashland.edu/sites/all/themes/ashlandecard/2014card/images/load.gif" height="50" />
+    }
+    else
+    {
+        @NullTemplate
+    }
+}
+else if (List.Count == 0)
+{
+    if (EmptyTemplate == null)
+    {
+        <span>No movies to show here..</span>
+    }
+    else
+    {
+        @EmptyTemplate
+    }
+}
+else
+{
+    @foreach (var item in List)
+    {
+        @ElementTemplate(item)
+    }
+}
+
+@code {
+    [Parameter] public RenderFragment NullTemplate { get; set; }
+    [Parameter] public RenderFragment EmptyTemplate { get; set; }
+    [Parameter] public List<TItem> List { get; set; }
+    [Parameter] public RenderFragment<TItem> ElementTemplate { get; set; }
+}
