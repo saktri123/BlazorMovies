@@ -2,9 +2,35 @@
 
 <h1>Counter</h1>
 
-<p>Current count: @currentCount</p>
+<p style="color: @appState.Color; font-size: @appState.Size">Current count: @currentCount</p>
 <p>Singleton count: @singleton.Value</p>
 <p>Transient count: @transient.Value</p>
+<div style="width:400px;margin:20px;">
+    <div class="row">
+        <div class="col-4">
+            <label>Color:</label>
+        </div>
+        <div class="col-8">
+            <select @bind="appState.Color" class="form-control">
+                <option>Red</option>
+                <option>Blue</option>
+                <option>Green</option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <label>Size:</label>
+        </div>
+        <div class="col-8">
+            <select @bind="appState.Size" class="form-control" style="margin-right:15px;">
+                <option>10px</option>
+                <option>30px</option>
+                <option>50px</option>
+            </select>
+        </div>
+    </div>
+</div>
 
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 <button class="btn btn-primary" @onclick="IncrementCountJavaScript">Click me JavaScript</button>

@@ -1,10 +1,11 @@
 ﻿@page "/"
+@using static BlazorMovies.Client.Shared.MainLayout;
 @inject SingletonClass singleton;
 @inject TransientClass transient;
 @inject IRepository repository;
 
 
-<p>Singleton count: @singleton.Value</p>
+<p style="color: @appState.Color; font-size: @appState.Size">Singleton count: @singleton.Value</p>
 <p>Transient count: @transient.Value</p>
 Create Movies-
 <DummyTextBox placeholder="Enter movie name" @attributes="prms" />
@@ -16,6 +17,7 @@ Create Movies-
 </MovieList>
 
 @code{
+    [CascadingParameter] private AppState appState { get; set; }
     Dictionary<string, object> prms = new Dictionary<string, object> {
         { "placeholder", "some value.."}
         };

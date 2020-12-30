@@ -1,4 +1,4 @@
-﻿ @inject IJSRuntime js;
+﻿@inject IJSRuntime js;
 
 <input type="checkbox" @bind="displayDelete" />
 <span>Enable Delete</span>
@@ -7,23 +7,39 @@
         <MovieItem movie="movie" DisplayDelete="displayDelete" DeleteCallBack="DeleteMovie" />
     </ElementTemplate>
 </GenericList>
+<Confirmation @ref="confirmation" OnCancel="OnCancel" OnConfirm="OnConfirm" Title="Confirm">
+    Are you sure to delete @movieToBeDelete.Name movie!
+</Confirmation>
 @ChildContent
 
 @code {
-        [Parameter] public List<Movie> Movies { get; set; }
+    private Confirmation confirmation;
+    private Movie movieToBeDelete;
+    [Parameter] public List<Movie> Movies { get; set; }
     public bool displayDelete = true;
     [Parameter] public RenderFragment ChildContent { get; set; }
 
     private async Task DeleteMovie(Movie movie)
     {
-        var confirm = await js.Confirm("Are you Sure!");
-        if (confirm)
-        {
-            await js.ConsoleLog($"Deleting movie {movie.Name}");
-            Movies.Remove(movie);
-        }
+        movieToBeDelete = movie;
+        confirmation.Show();
+        //var confirm = await js.Confirm("Are you Sure!");
+        //if (confirm)
+        //{
+        //    await js.ConsoleLog($"Deleting movie {movie.Name}");
+        //    Movies.Remove(movie);
+        //}
     }
 
+    private void OnConfirm()
+    {
+        Movies.Remove(movieToBeDelete);
+        confirmation.Hide();
+    }
+    private void OnCancel()
+    {
+        confirmation.Hide();
+    }
     protected override void OnInitialized()
     {
         Console.WriteLine($"On Initialized: Movies- {Movies?.Count}");
