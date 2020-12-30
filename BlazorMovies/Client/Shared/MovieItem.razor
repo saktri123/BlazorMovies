@@ -1,13 +1,25 @@
-﻿<h4><b>Name:</b> @movie.Name</h4>
-<h4><b>Release Date:</b> @movie.ReleaseDate.ToString("d-MMMM-yyyy")</h4>
-@if (DisplayDelete)
-{
+﻿<div class="individual-movie-item">
+    <a href="@detailURL">
+        <img src="@movie.PosterImage" class="movie-item-poster" alt="poster" />
+    </a>
+    <p><a href="@detailURL"> @movie.NameBrief </a></p>
+    <div>
+        <a class="btn btn-info">Edit</a>
+        <button class="btn btn-danger" @onclick="@(()=> DeleteCallBack.InvokeAsync(movie))">Delete</button>
+    </div>  
+</div>
+ 
+@*<h4><b>Name:</b> @movie.Name</h4>
+
     <button @onclick="@(()=> DeleteCallBack.InvokeAsync(movie))">Delete</button>
-}
-<hr />
+<hr />*@
 @code {
     [Parameter] public Movie movie { get; set; }
-    [Parameter] public bool DisplayDelete { get; set; } = false;
     [Parameter] public EventCallback<Movie> DeleteCallBack { get; set; }
-   
+    private string detailURL = "";
+
+    protected override void OnInitialized()
+    {
+        detailURL = "/movies/";
+    }
 }

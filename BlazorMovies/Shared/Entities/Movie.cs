@@ -8,5 +8,11 @@ namespace BlazorMovies.Shared.Entities
     {
         public string Name { get; set; }
         public DateTime ReleaseDate { get; set; }
+        public string PosterImage { get; set; }
+        public string NameBrief {
+            get {
+                return !String.IsNullOrEmpty(Name) && Name.Length>60 ? Name.Substring(0, 60) + "..." : Name;
+            }
+        }
     }
 }
