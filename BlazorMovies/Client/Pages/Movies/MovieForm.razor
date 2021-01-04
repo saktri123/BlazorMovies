@@ -1,0 +1,47 @@
+﻿<EditForm Model="movie" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator></DataAnnotationsValidator>
+    <div class="form-group">
+        <label for="name">Name:</label>
+        <InputText class="form-control" id="name" @bind-Value="movie.Name"></InputText>
+        <ValidationMessage For="()=> movie.Name"></ValidationMessage>
+    </div>
+
+    <div class="form-group">
+        <label for="intheaters">In Theaters:</label>
+        <InputCheckbox id="intheaters" @bind-Value="movie.InTheaters"></InputCheckbox>
+        <ValidationMessage For="()=> movie.InTheaters"></ValidationMessage>
+    </div>
+    <div class="form-group">
+        <label for="trailer">Trailer:</label>
+        <InputText class="form-control" id="trailer" @bind-Value="movie.Trailer"></InputText>
+        <ValidationMessage For="()=> movie.Trailer"></ValidationMessage>
+    </div>
+    <div class="form-group">
+        <label for="releaseDate">Release Date:</label>
+        <InputDate class="form-control" id="releaseDate" @bind-Value="movie.ReleaseDate"></InputDate>
+        <ValidationMessage For="()=> movie.ReleaseDate"></ValidationMessage>
+    </div>
+    <div class="form-group">
+        <label>Poster Image</label>
+        <InputImg Label="Picture" OnSelectedImage="OnSelectedImage" ImageURL="@imageUrl" />
+        <ValidationMessage For="@(()=> movie.PosterImage)" />
+    </div>
+    <div class="form-group form-markdown">
+        <InputMarkDown Label="summary" @bind-Value="movie.Summary" For="()=> movie.Summary" />
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+</EditForm>
+
+@code {
+    [Parameter] public Movie movie { get; set; }
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+    private string imageUrl;
+    void OnSelectedImage()
+    {
+        if (!string.IsNullOrEmpty(movie.PosterImage))
+            imageUrl = movie.PosterImage;
+        movie.PosterImage = null;
+    }
+}

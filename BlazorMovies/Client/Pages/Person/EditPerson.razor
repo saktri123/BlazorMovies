@@ -1,7 +1,17 @@
-﻿@page "/persons/edit";
+﻿@page "/persons/edit/{PersonId:int}";
  
 <h3>EditPerson</h3>
-
+<PersonForm Person="person" OnValidSubmit="Update"/>
 @code {
+    [Parameter] public int PersonId { get; set; }
+    Person person;
 
+    protected override void OnInitialized()
+    {
+        person = new Person() { Id = PersonId, Name = "Saket Tripathi" };
+    }
+
+    void Update() {
+        Console.WriteLine("Updating person..");
+    }
 }

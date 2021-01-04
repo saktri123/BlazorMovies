@@ -1,7 +1,19 @@
-﻿@page "/geners/edit";
+﻿@page "/geners/edit/{GenerId:int}";
 
-<h3>EditGeners</h3>
-
+<h3>Edit Geners</h3>
+@if (gener != null)
+{
+    <GenerForm gener="gener" OnValidSubmit="Update" />
+}
 @code {
-
+    [Parameter] public int GenerId { get; set; }
+    private Gener gener;
+    protected override void OnInitialized()
+    {
+        gener = new Gener() { Id = GenerId, Name = "Comedy" };
+    }
+    private void Update()
+    {
+        Console.WriteLine($"updated name : {gener.Name}");
+    }
 }
