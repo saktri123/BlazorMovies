@@ -12,5 +12,6 @@ namespace BlazorMovies.Shared.Entities
         public int Id { get; set; }
         [Required(ErrorMessage ="Name is rquired!")]
         public string Name { get; set; }
+        public List<MovieGener> MovieGeners { get; set; }
     }
 }

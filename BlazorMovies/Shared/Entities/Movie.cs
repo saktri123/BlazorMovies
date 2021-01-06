@@ -13,6 +13,7 @@ namespace BlazorMovies.Shared.Entities
         public string Summary { get; set; }
         public bool InTheaters { get; set; }
         public string Trailer { get; set; }
+        public List<MovieGener> MovieGeners { get; set; }
         [Required]
         public DateTime? ReleaseDate { get; set; }
         public string PosterImage { get; set; }

@@ -1,40 +1,71 @@
 ﻿.individual-movie-item {
     margin-right: 2%;
     margin-bottom: 20px;
-    text-align:center;
+    text-align: center;
 }
 
     .individual-movie-item p {
         max-width: 225px;
         /*height:44px;*/
-        font-size:15px;
-        font-weight:bold;
-        text-align:center
+        font-size: 15px;
+        font-weight: bold;
+        text-align: center
     }
 
 .movie-item-poster {
-    
-    width:225px;
+    width: 225px;
 }
 
 .movie-item {
-    display:flex;
-    flex-wrap:wrap;
-    align-items:center;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
 }
 
 .form-markdown {
-    display:flex;
+    display: flex;
 }
 
     .form-markdown textarea {
-        width:500px;
-        height:500px;
-        margin-right:15px;
+        width: 500px;
+        height: 500px;
+        margin-right: 15px;
     }
 
     .form-markdown .markdown-container {
         width: 500px;
         height: 500px;
-        border:1px dashed black;
+        border: 1px dashed black;
+    }
+
+.multiple-selector {
+    display: flex;
+}
+
+    .multiple-selector ul {
+        height: 200px;
+        overflow-y: auto;
+        width: 170px;
+        padding: 0;
+        border: 1px solid black;
+        border-radius: 3px;
+    }
+
+        .multiple-selector ul li {
+            cursor: pointer;
+            border-bottom: 1px #eee solid;
+        }
+
+            .multiple-selector ul li:hover {
+                background-color: #08c;
+            }
+
+.multiple-selector-button {
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:5px;
+}
+    .multiple-selector-button button {
+        margin: 5px;
     }

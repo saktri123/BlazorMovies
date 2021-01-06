@@ -2,12 +2,19 @@
 @inject NavigationManager navigateManager;
 
 <h3>CreateMovie</h3>
-<MovieForm movie="movie" OnValidSubmit="SaveMovie"></MovieForm>
+<MovieForm movie="movie" OnValidSubmit="SaveMovie" NoSelected="NoSelectedGener"></MovieForm>
 
 @code {
     Movie movie = new Movie();
+    private List<Gener> NoSelectedGener = new List<Gener>() {
+        new Gener{Id=1,Name="Comedy" },
+        new Gener{Id=1,Name="Action" },
+        new Gener{Id=1,Name="Drama" },
+    };
+    private List<Gener> SelectedGener;
 
-    private void SaveMovie() {
+    private void SaveMovie()
+    {
         Console.WriteLine(navigateManager.Uri);
         navigateManager.NavigateTo("movies/");
     }

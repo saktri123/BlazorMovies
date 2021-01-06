@@ -27,7 +27,13 @@
         <ValidationMessage For="@(()=> movie.PosterImage)" />
     </div>
     <div class="form-group form-markdown">
-        <InputMarkDown Label="summary" @bind-Value="movie.Summary" For="()=> movie.Summary" />
+        <InputMarkDown Label="Summary" @bind-Value="movie.Summary" For="()=> movie.Summary" />
+    </div>
+    <div class="form-group">
+        <label>Gener:</label>
+        <div>
+            <MultipleSelect Selected="SelectedModel" NoSelected="NoSelectedModel" />
+        </div>
     </div>
     <div class="form-group">
         <button type="submit" class="btn btn-primary">Save</button>
@@ -37,7 +43,18 @@
 @code {
     [Parameter] public Movie movie { get; set; }
     [Parameter] public EventCallback OnValidSubmit { get; set; }
+    [Parameter] public List<Gener> Selected { get; set; } = new List<Gener>();
+    [Parameter] public List<Gener> NoSelected { get; set; } = new List<Gener>();
+    private List<MultipleSelectModel> SelectedModel;
+    private List<MultipleSelectModel> NoSelectedModel;
     private string imageUrl;
+
+    protected override void OnInitialized()
+    {
+        SelectedModel = Selected.Select(x => new MultipleSelectModel(x.Id.ToString(), x.Name)).ToList();
+        NoSelectedModel = NoSelected.Select(x => new MultipleSelectModel(x.Id.ToString(), x.Name)).ToList();
+    }
+
     void OnSelectedImage()
     {
         if (!string.IsNullOrEmpty(movie.PosterImage))

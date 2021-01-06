@@ -1,10 +1,17 @@
 ﻿@page "/movies/edit/{MovieId:int}";
 
-<MovieForm movie="movie" OnValidSubmit="Edit"></MovieForm>
+<MovieForm movie="movie" OnValidSubmit="Edit" Selected="SelectedGener" NoSelected="NoSelectedGener"></MovieForm>
 
 @code {
     [Parameter] public int MovieId { get; set; }
     Movie movie;
+    private List<Gener> SelectedGener = new List<Gener>() {
+        new Gener{Id=1,Name="Comedy" },
+        new Gener{Id=1,Name="Drama" },
+    };
+    private List<Gener> NoSelectedGener = new List<Gener>() {
+        new Gener{Id=1,Name="Action" }
+    };
 
     protected override void OnInitialized()
     {
