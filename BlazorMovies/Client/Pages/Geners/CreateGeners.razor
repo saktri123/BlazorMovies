@@ -1,10 +1,20 @@
 ﻿@page "/geners/create";
-
+@inject IGenerRepository _generRepostiory
+@inject NavigationManager _navigationManager;
 <h3>Create Geners</h3>
 <GenerForm gener="gener" OnValidSubmit="Create" />
 @code {
     private Gener gener = new Gener();
-    private void Create() {
+    private async Task Create() {
         Console.WriteLine(gener.Name);
+        try
+        {
+            await _generRepostiory.CreateGener(gener);
+            _navigationManager.NavigateTo("geners");
+        }
+        catch (Exception)
+        {
+            throw;
+        }
     }
 }

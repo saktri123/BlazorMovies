@@ -1,4 +1,6 @@
 ﻿@page "/persons/create";
+@inject IPersonRepository repository
+@inject NavigationManager navigationManager
 
 <h3>CreatePerson</h3>
 <PersonForm Person="person" OnValidSubmit="Create" />
@@ -7,5 +9,7 @@
     Person person = new Person();
     public void Create() {
         Console.WriteLine("Creating person");
+        repository.CreatePerson(person);
+        navigationManager.NavigateTo("persons");
     }
 }

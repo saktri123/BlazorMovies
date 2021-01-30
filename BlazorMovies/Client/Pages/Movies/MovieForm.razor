@@ -36,6 +36,22 @@
         </div>
     </div>
     <div class="form-group">
+        <label>Actors:</label>
+        <div>
+            <MultipleSelectrorTypeahead Context="person" SearchMethod="@((string searchText)=>SearchMethod(searchText))" 
+                                        SelectedElements="SelectedActors">
+            <MyResultTemplate>
+                <img style="width:50px;" src="@person.Picture" />
+                @person.Name
+            </MyResultTemplate>
+            <MyListTemplate>
+                <img style="width:15px;" src="@person.Picture" />
+                @person.Name
+            </MyListTemplate>
+            </MultipleSelectrorTypeahead>
+        </div>
+    </div>
+    <div class="form-group">
         <button type="submit" class="btn btn-primary">Save</button>
     </div>
 </EditForm>
@@ -47,6 +63,8 @@
     [Parameter] public List<Gener> NoSelected { get; set; } = new List<Gener>();
     private List<MultipleSelectModel> SelectedModel;
     private List<MultipleSelectModel> NoSelectedModel;
+    private List<Person> SelectedActors { get; set; } = new List<Person>();
+    //private Person person;
     private string imageUrl;
 
     protected override void OnInitialized()
@@ -61,4 +79,21 @@
             imageUrl = movie.PosterImage;
         movie.PosterImage = null;
     }
+
+    private async Task<IEnumerable<Person>> SearchMethod(string searchText)
+    {
+        if (searchText == "test")
+        {
+            return Enumerable.Empty<Person>();
+        }
+        else
+        {
+            return new List<Person> {
+               new Person{Id=1, Name="Tom Holand", Picture="https://m.media-amazon.com/images/M/MV5BNTAzMzA3NjQwOF5BMl5BanBnXkFtZTgwMDUzODQ5MTI@._V1_UY317_CR23,0,214,317_AL__QL50.jpg" },
+               new Person{Id=2, Name= "Tom Hanks", Picture="https://m.media-amazon.com/images/M/MV5BMTQ2MjMwNDA3Nl5BMl5BanBnXkFtZTcwMTA2NDY3NQ@@._V1_UY317_CR2,0,214,317_AL__QL50.jpg" }
+            };
+
+        }
+    }
 }
+

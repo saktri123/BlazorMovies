@@ -7,6 +7,7 @@ namespace BlazorMovies.Shared.Entities
 {
    public class Movie
     {
+        [Key]
         public int MovieId { get; set; }
         [Required]
         public string Name { get; set; }
@@ -22,5 +23,6 @@ namespace BlazorMovies.Shared.Entities
                 return !String.IsNullOrEmpty(Name) && Name.Length>60 ? Name.Substring(0, 60) + "..." : Name;
             }
         }
+        public List<MoviesActors> MoviesActors { get; set; }
     }
 }

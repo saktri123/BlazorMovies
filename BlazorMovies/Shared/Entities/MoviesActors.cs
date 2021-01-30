@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 
 namespace BlazorMovies.Shared.Entities
 {
-   public class MovieGener
+    public class MoviesActors
     {
+        public int PersonId { get; set; }
         public int MovieId { get; set; }
-        public int GenerId { get; set; }
+        public Person Person { get; set; }
         public Movie Movie { get; set; }
-        public Gener Gener { get; set; }
+        public string Character { get; set; }
+        public int Order { get; set; }
 
     }
 }

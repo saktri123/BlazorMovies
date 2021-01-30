@@ -8,7 +8,7 @@
                placeholder="@Placeholder"
                @bind-value="@SearchText"
                @bind-value:event="oninput"
-               @onclick="ShowSuggestions"
+               @onclick="@ShowSuggestions"
                @onfocusout="onfocusout" />
     </div>
     @if (IsSearching)
@@ -25,7 +25,7 @@
             @foreach (var item in Suggestions)
             {
                 <div @key="item" class="blazored-typeahead__result" tabindex="0" 
-                     @onmouseover="onmouseoverSuggestion" @onmouseout="onmouseoutSuggestion" @onclick="@(() => SelectSuggestion(item))">
+                     @onmouseover="@onmouseoverSuggestion" @onmouseout="@onmouseoutSuggestion" @onclick="@(() => SelectSuggestion(item))">
                     @ResultTemplate(item)
                 </div>
             }
@@ -110,7 +110,7 @@
     {
         if (Suggestions.Any())
         {
-            IsShowingSuggestions = false;
+            IsShowingSuggestions = true;
         }
     }
 

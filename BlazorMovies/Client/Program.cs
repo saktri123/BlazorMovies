@@ -8,6 +8,8 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using BlazorMovies.Shared;
+using BlazorMovies.Client.Helpers;
+using BlazorMovies.Client.Repositories;
 
 namespace BlazorMovies.Client
 {
@@ -24,9 +26,10 @@ namespace BlazorMovies.Client
         }
 
         private static void ConfigureServices(IServiceCollection services) {
-            services.AddSingleton<SingletonClass>();
-            services.AddTransient<TransientClass>();
             services.AddTransient<IRepository,RepositoryInMemory>();
+            services.AddScoped<IHttpService, HttpService>();
+            services.AddScoped<IGenerRepository, GenerRepository>();
+            services.AddScoped<IPersonRepository, PersonRepository>();
         }
     }
 }
