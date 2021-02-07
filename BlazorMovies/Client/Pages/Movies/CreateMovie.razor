@@ -1,6 +1,6 @@
 ﻿@page "/movies/create";
 @inject NavigationManager navigateManager;
-
+@inject IMovieRepository movieRepository;
 <h3>CreateMovie</h3>
 <MovieForm movie="movie" OnValidSubmit="SaveMovie" NoSelected="NoSelectedGener"></MovieForm>
 
@@ -13,9 +13,19 @@
     };
     private List<Gener> SelectedGener;
 
-    private void SaveMovie()
+    private async void SaveMovie()
     {
-        Console.WriteLine(navigateManager.Uri);
-        navigateManager.NavigateTo("movies/");
+        try
+        {
+            Console.WriteLine(movie);
+            var movieId = await movieRepository.CreateMovie(movie);
+            navigateManager.NavigateTo($"movies/{movieId}/{movie.Name.Replace(" ","-")}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            throw;
+        }
+
     }
 }

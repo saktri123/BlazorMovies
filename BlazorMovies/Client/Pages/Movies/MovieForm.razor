@@ -1,4 +1,4 @@
-﻿<EditForm Model="movie" OnValidSubmit="OnValidSubmit">
+﻿<EditForm Model="movie" OnValidSubmit="OnValidDataAnotation">
     <DataAnnotationsValidator></DataAnnotationsValidator>
     <div class="form-group">
         <label for="name">Name:</label>
@@ -38,16 +38,16 @@
     <div class="form-group">
         <label>Actors:</label>
         <div>
-            <MultipleSelectrorTypeahead Context="person" SearchMethod="@((string searchText)=>SearchMethod(searchText))" 
+            <MultipleSelectrorTypeahead Context="person" SearchMethod="@((string searchText)=>SearchMethod(searchText))"
                                         SelectedElements="SelectedActors">
-            <MyResultTemplate>
-                <img style="width:50px;" src="@person.Picture" />
-                @person.Name
-            </MyResultTemplate>
-            <MyListTemplate>
-                <img style="width:15px;" src="@person.Picture" />
-                @person.Name
-            </MyListTemplate>
+                <MyResultTemplate>
+                    <img style="width:50px;" src="@person.Picture" />
+                    @person.Name
+                </MyResultTemplate>
+                <MyListTemplate>
+                    <img style="width:15px;" src="@person.Picture" />
+                    @person.Name / <input @bind-value="@person.Charachter" placeholder="Charcter" />
+                </MyListTemplate>
             </MultipleSelectrorTypeahead>
         </div>
     </div>
@@ -71,13 +71,14 @@
     {
         SelectedModel = Selected.Select(x => new MultipleSelectModel(x.Id.ToString(), x.Name)).ToList();
         NoSelectedModel = NoSelected.Select(x => new MultipleSelectModel(x.Id.ToString(), x.Name)).ToList();
-    }
-
-    void OnSelectedImage()
-    {
         if (!string.IsNullOrEmpty(movie.PosterImage))
             imageUrl = movie.PosterImage;
-        movie.PosterImage = null;
+    }
+
+    void OnSelectedImage(string base64Image)
+    {
+
+        movie.PosterImage = base64Image;
     }
 
     private async Task<IEnumerable<Person>> SearchMethod(string searchText)
@@ -94,6 +95,17 @@
             };
 
         }
+    }
+
+    private async Task OnValidDataAnotation()
+    {
+        movie.MovieGeners = SelectedModel.Select(x=> new MovieGener { GenerId = int.Parse(x.Key) }).ToList();
+
+        movie.MoviesActors = SelectedActors.Select(x => new MoviesActors { PersonId = x.Id, Character = x.Charachter }).ToList();
+
+        if (!string.IsNullOrEmpty(movie.PosterImage)) imageUrl = null;
+
+        await OnValidSubmit.InvokeAsync(null);
     }
 }
 
